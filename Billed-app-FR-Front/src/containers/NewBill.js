@@ -10,6 +10,14 @@ export default class NewBill {
     formNewBill.addEventListener("submit", this.handleSubmit)
     const file = this.document.querySelector(`input[data-testid="file"]`)
     file.addEventListener("change", this.handleChangeFile)
+
+    const spanError = document.createElement("span");
+    spanError.style.visibility = "hidden"
+    spanError.classList.add('span--error')
+    spanError.textContent = 'Veuillez télécharger en format JPG, JPEG ou PNG'
+    let parentDiv = this.document.querySelector(`input[data-testid="file"]`).parentNode
+    parentDiv.insertBefore(spanError, undefined)
+
     this.fileUrl = null
     this.fileName = null
     this.billId = null
@@ -19,12 +27,29 @@ export default class NewBill {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
+    const  fileType = file['type'];
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    console.log(e)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
+    const spanError = document.querySelector(".span--error")
+    
     formData.append('file', file)
     formData.append('email', email)
-
+    
+    if(!validImageTypes.includes(fileType)){
+      
+      this.fileName = null
+      e.target.value = ''
+      spanError.style.visibility = "visible"
+      
+      
+    }else{
+      spanError.style.visibility = "hidden"
+      
+      
+    }
     this.store
       .bills()
       .create({
