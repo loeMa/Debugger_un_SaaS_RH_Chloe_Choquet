@@ -12,7 +12,7 @@ export default class NewBill {
     file.addEventListener("change", this.handleChangeFile)
 
     const spanError = document.createElement("span");
-    spanError.style.visibility = "hidden"
+    spanError.style.display = "none"
     spanError.classList.add('span--error')
     spanError.textContent = 'Veuillez télécharger en format JPG, JPEG ou PNG'
     let parentDiv = this.document.querySelector(`input[data-testid="file"]`).parentNode
@@ -27,13 +27,14 @@ export default class NewBill {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
-    const  fileType = file['type'];
-    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    const fileType = file['type'];
+    const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
     console.log(e)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     const spanError = document.querySelector(".span--error")
+    
     
     formData.append('file', file)
     formData.append('email', email)
@@ -42,11 +43,11 @@ export default class NewBill {
       
       this.fileName = null
       e.target.value = ''
-      spanError.style.visibility = "visible"
+      spanError.style.display = "block"
       
       
     }else{
-      spanError.style.visibility = "hidden"
+      spanError.style.display = "none"
       
       
     }
@@ -87,6 +88,7 @@ export default class NewBill {
   }
 
   // not need to cover this function by tests
+  /* istanbul ignore next */
   updateBill = (bill) => {
     if (this.store) {
       this.store
