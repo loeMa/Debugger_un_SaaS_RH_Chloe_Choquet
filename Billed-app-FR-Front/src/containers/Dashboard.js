@@ -138,25 +138,20 @@ export default class {
 
   handleShowTickets(e, bills, index) {
     
-    //console.log('init', this.counter, index, this.index, this.isOpen[index])
-    //if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.index === undefined || this.index !== index) this.index = index
     if (!this.isOpen[index]) {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
       $(`#status-bills-container${this.index}`)
         .html(cards(filteredBills(bills, getStatus(this.index))))
-      //this.counter ++
+      
       this.isOpen[index] = true
-      //console.log('premier', this.counter,  index, this.index, this.isOpen[index])
+      
     } else {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
       $(`#status-bills-container${this.index}`)
         .html("")
         
-      //this.counter ++
       this.isOpen[index] = false
-
-      //console.log('deuxième', this.counter, index, this.index, this.isOpen[index])
     }
 
     bills.forEach(bill => {

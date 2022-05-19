@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import {fireEvent, screen, waitFor } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
-import BillsUI from "../views/BillsUI.js"
 import {ROUTES, ROUTES_PATH} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import mockStore from "../__mocks__/store";
@@ -56,6 +55,7 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getByRole("button")).toBeTruthy();
   })
     test('Then I select a wrong IMG format ', async() =>{
+      
       const html = NewBillUI()
       document.body.innerHTML = html
       mockStore.bills = jest.fn().mockImplementation(() => {
@@ -163,4 +163,5 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getAllByText("Mes notes de frais")).toBeTruthy();
     });
   })
+  
 })

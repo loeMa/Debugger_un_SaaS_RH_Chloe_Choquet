@@ -43,7 +43,16 @@ describe("Given I am connected as an employee", () => {
     })
   })
 })
+describe("When I am on Bills page with an error", () => {
+  test("Then Error page should be displayed", () => {
 
+      const html = BillsUI({ data: bills, error: true });
+      document.body.innerHTML = html;
+      const error = screen.getAllByText("Erreur");
+      
+      expect(error).toBeTruthy();
+  })
+}) 
 
 describe("When on the Dashboard and I click on eye icon", () => {
   test("Then a modal should be open", async () => {
@@ -70,11 +79,14 @@ describe("When on the Dashboard and I click on eye icon", () => {
     $.fn.modal = jest.fn();
     const handleClickIconEye  = jest.fn((e) => billContainer.handleClickIconEye(e.target))
 
-    const eyeIcon = screen.getAllByTestId('icon-eye')[0]
+    const eyeIcon = screen.getAllByTestId('icon-eye')[0];
+    expect(eyeIcon).toBeTruthy();
     eyeIcon.addEventListener('click', handleClickIconEye)
     fireEvent.click(eyeIcon)
 
     expect(handleClickIconEye).toHaveBeenCalled()
+    expect(screen.getAllByText('Justificatif')).toBeTruthy()
+    
   })
 })
 
@@ -163,6 +175,7 @@ describe("Given I am a user connected as Employee", () => {
         const message =  await waitFor(() => screen.getByText(/Erreur 500/))
         expect(message).toBeTruthy()
       })
+      
     })
 
   })
