@@ -35,21 +35,15 @@ export default class NewBill {
     const email = JSON.parse(localStorage.getItem("user")).email
     const spanError = document.querySelector(".span--error")
     
-    
     formData.append('file', file)
     formData.append('email', email)
-    
+    // si le type de l'image est différente de jpg, png ou jpeg alors erreur apparait
     if(!validImageTypes.includes(fileType)){
-      
       this.fileName = null
       e.target.value = ''
       spanError.style.display = "block"
-      
-      
     }else{
       spanError.style.display = "none"
-      
-      
     }
     this.store
       .bills()

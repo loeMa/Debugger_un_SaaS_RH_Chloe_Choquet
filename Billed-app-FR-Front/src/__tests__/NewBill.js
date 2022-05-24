@@ -151,6 +151,31 @@ describe("Given I am connected as an employee", () => {
       const html = NewBillUI()
       document.body.innerHTML = html
 
+      const billTest = {
+        vat: "80",
+        fileUrl: "https://firebasestorage.googleapis.com/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a",
+        type: "Hôtel et logement",
+        commentary: "séminaire billed",
+        name: "encore",
+        fileName: "preview-facture-free-201801-pdf-1.jpg",
+        date: "2004-04-04",
+        amount: 400,
+        email: "a@a",
+        pct: 20
+      }
+
+      screen.getByTestId('expense-type').value = billTest.type;
+      screen.getByTestId('expense-name').value = billTest.name;
+      screen.getByTestId('datepicker').value = billTest.date;
+      screen.getByTestId('amount').value = billTest.amount;
+      screen.getByTestId('vat').value = billTest.vat;
+      screen.getByTestId('pct').value = billTest.pct;
+      screen.getByTestId('commentary').value = billTest.commentary;
+    
+
+    newbill.fileUrl = billTest.fileUrl;
+    newbill.fileName = billTest.fileName;
+
       const handleSubmit = jest.fn((e) => newbill.handleSubmit(e) )
       const form = screen.getByTestId('form-new-bill')
       form.addEventListener('submit', handleSubmit)
